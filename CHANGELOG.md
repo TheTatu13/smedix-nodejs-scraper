@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-07-23
 
 ### Added
-- Initial release — derived from [epam-systems-international-srl-nodejs-scraper](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper)
+- Initial release — derived from [epam-systems-international-srl-nodejs-scraper](https://github.com/peviitor-scrapers/epam-systems-international-srl-nodejs-scraper)
 - Job scraping from Perficient Oracle HCM Cloud API (careers.perficient.com)
 - Company validation via ANAF (CIF: 36734466)
 - ANOFM job scraping by CIF

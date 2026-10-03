@@ -7,10 +7,10 @@ Thank you for your interest in contributing!
 This is the **reference implementation** for Node.js job scrapers in the peviitor.ro ecosystem. New scrapers for other Romanian companies should be derived from this pattern — same structure, same workflows, same testing layers.
 
 > **✅ Validated in production.** These derived scrapers follow this exact checklist:
-> - [mejix-srl-nodejs-scraper](https://github.com/sebiboga/mejix-srl-nodejs-scraper) — MEJIX S.R.L. (HTML/cheerio, single-page)
-> - [talent-matchmakers-srl-nodejs-scraper](https://github.com/sebiboga/talent-matchmakers-srl-nodejs-scraper) — TALENT MATCHMAKERS S.R.L. (Teamtailor HTML/cheerio)
-> - [principal33-srl-nodejs-scraper](https://github.com/sebiboga/principal33-srl-nodejs-scraper) — PRINCIPAL33 S.R.L. (Personio JSON API)
-> - [gusturi-divine-srl-nodejs-scraper](https://github.com/sebiboga/gusturi-divine-srl-nodejs-scraper) — GUSTURI DIVINE S.R.L. (ANOFM API)
+> - [mejix-srl-nodejs-scraper](https://github.com/peviitor-scrapers/mejix-srl-nodejs-scraper) — MEJIX S.R.L. (HTML/cheerio, single-page)
+> - [talent-matchmakers-srl-nodejs-scraper](https://github.com/peviitor-scrapers/talent-matchmakers-srl-nodejs-scraper) — TALENT MATCHMAKERS S.R.L. (Teamtailor HTML/cheerio)
+> - [principal33-srl-nodejs-scraper](https://github.com/peviitor-scrapers/principal33-srl-nodejs-scraper) — PRINCIPAL33 S.R.L. (Personio JSON API)
+> - [gusturi-divine-srl-nodejs-scraper](https://github.com/peviitor-scrapers/gusturi-divine-srl-nodejs-scraper) — GUSTURI DIVINE S.R.L. (ANOFM API)
 > Use them as references if anything below is unclear.
 
 ## Deriving a New Scraper for Another Company
@@ -101,7 +101,7 @@ npm test
 
 ## Reporting Issues
 
-Open a [GitHub Issue](https://github.com/sebiboga/epam-systems-international-srl-nodejs-scraper/issues) with:
+Open a [GitHub Issue](https://github.com/peviitor-scrapers/epam-systems-international-srl-nodejs-scraper/issues) with:
 - Clear description of the problem
 - Steps to reproduce
 - Expected vs actual behavior
