@@ -7,13 +7,14 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '../../.env.local') });
 
-const HAS_SOLR = !!process.env.SOLR_AUTH;
+// Live API tests hit api.peviitor.ro (no credential needed) -- opt in explicitly.
+const HAS_SOLR = !!process.env.RUN_LIVE_API_TESTS;
 
 function itIfSolr(name, fn, timeout) {
   if (HAS_SOLR) {
     return it(name, fn, timeout);
   }
-  return it.skip(`${name} (skipped: SOLR_AUTH not set)`, fn, timeout);
+  return it.skip(`${name} (skipped: set RUN_LIVE_API_TESTS=1 to run)`, fn, timeout);
 }
 
 let HAS_ANAF = false;
@@ -41,9 +42,6 @@ let COMPANY_CONFIG;
 
 beforeAll(async () => {
   HAS_ANAF = await checkAnafAvailability();
-  if (HAS_SOLR) {
-    process.env.SOLR_AUTH = process.env.SOLR_AUTH;
-  }
   const mod = await import('../../config/company.js');
   COMPANY_CONFIG = mod.default;
 });
@@ -124,10 +122,9 @@ describe('Integration: API Workflow', () => {
     });
 
     itIfSolr('should query company core by ID', async () => {
-      const result = await solr.queryCompanySOLR(`id:36734466`);
+      const smedix = await solr.getCompanyByCif('36734466');
 
-      expect(result.numFound).toBe(1);
-      const smedix = result.docs[0];
+      expect(smedix).not.toBeNull();
       expect(smedix.id).toBe('36734466');
       expect(smedix.company).toBe(COMPANY_CONFIG.legalName);
       expect(smedix.brand).toBe(COMPANY_CONFIG.brand);
@@ -137,8 +134,7 @@ describe('Integration: API Workflow', () => {
     }, 15000);
 
     itIfSolr('should have required company model fields', async () => {
-      const result = await solr.queryCompanySOLR(`id:36734466`);
-      const smedix = result.docs[0];
+      const smedix = await solr.getCompanyByCif('36734466');
 
       expect(smedix).toHaveProperty('id', '36734466');
       expect(smedix).toHaveProperty('company');
@@ -239,10 +235,10 @@ describe('Integration: API Workflow', () => {
     itIfSolr('should have matching CIF in company core', async () => {
       const companyResult = await companyModule.validateAndGetCompany();
 
-      const solrResult = await solr.queryCompanySOLR('id:36734466');
-      expect(solrResult.numFound).toBe(1);
-      expect(solrResult.docs[0].id).toBe('36734466');
-      expect(solrResult.docs[0].company).toBe(COMPANY_CONFIG.legalName);
+      const solrResult = await solr.getCompanyByCif('36734466');
+      expect(solrResult).not.toBeNull();
+      expect(solrResult.id).toBe('36734466');
+      expect(solrResult.company).toBe(COMPANY_CONFIG.legalName);
     }, 30000);
 
     itIfSolr('should validate company and query SOLR for existing jobs', async () => {
